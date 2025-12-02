@@ -6,6 +6,8 @@ import com.management.Library_Management.requests.RequestForCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartImpl implements CartInterface{
 
@@ -19,5 +21,15 @@ public class CartImpl implements CartInterface{
         cart.setPublished_by(requestForCart.getPublished_by());
         cart.setPrice(requestForCart.getPrice());
         cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart getbookname(String bookname) {
+        return cartRepository.getbookname(bookname);
+    }
+
+    @Override
+    public Cart getCartByPublishedBy(String authorname) {
+        return cartRepository.getauthorname(authorname);
     }
 }

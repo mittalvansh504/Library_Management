@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMS User Dashboard</title>
+    <title>LMS Pro - Member Dashboard</title>
     <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/static/CSS/dashboard.css">
 </head>
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/dashboard}">&#128218; LMS Dashboard</a>
+        <a class="navbar-brand" th:href="@{/dashboard}"><i class="bi bi-book-half me-2 text-warning"></i> LMS Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/catalog}">Catalog Search</a>
+                    <a class="nav-link" th:href="@{/catalog}"><i class="bi bi-search me-1"></i> Catalog Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profile}">Profile</a>
-
+                    <a class="nav-link" th:href="@{/profile}"><i class="bi bi-person-fill me-1"></i> Profile</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-flex align-items-center">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn btn-sm btn-outline-danger ms-2 mt-1">Logout</button>
+                        <button type="submit" class="btn btn-sm btn-outline-danger ms-2 fw-bold">
+                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        </button>
                     </form>
                 </li>
             </ul>
@@ -37,90 +40,125 @@
 </nav>
 
 <!-- Main Content -->
-<div class="container mt-4">
+<div class="container mt-0">
 
-    <!-- ** NEW USER WELCOME ALERT ** -->
-    <!-- This alert will only display if the Spring Controller passes 'isNewUser' as true -->
-    <div th:if="${isNewUser}" class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        <h4 class="alert-heading">Registration Successful!</h4>
+    <!-- ** NEW USER WELCOME ALERT ** (Visually Enhanced) -->
+    <div th:if="${isNewUser}" class="alert alert-success alert-dismissible fade show text-center my-4 rounded-3 shadow" role="alert">
+        <h4 class="alert-heading fw-bold"><i class="bi bi-cup-hot-fill me-2"></i> Registration Successful!</h4>
         <p>Welcome to the Library Management System! You are now logged in and ready to explore our collection.</p>
         <hr>
-        <p class="mb-0">Start by clicking 'Search Catalog' below to find your first book!</p>
+        <p class="mb-0 fw-semibold">Start by clicking 'Search Catalog' below to find your first book!</p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <!-- ** END NEW USER WELCOME ALERT ** -->
 
-
     <!-- Welcome Header -->
     <header class="dashboard-header">
-        <!-- Thymeleaf fetches 'firstName' from the 'user' object provided by the Spring Controller -->
-        <h1 class="fw-light">Welcome back, <span th:text="${user.firstName ?: 'User'}" class="text-primary fw-bold">John Doe</span>!</h1>
-        <p class="text-muted">Your central hub for library activities and management.</p>
+        <h1 class="fw-light text-dark">Hello, <span th:text="${user.firstName ?: 'User'}" class="text-primary fw-bolder">John Doe</span>!</h1>
+        <p class="text-secondary fs-5">Here's a quick overview of your account status.</p>
     </header>
 
-    <!-- Quick Actions Row -->
+    <!-- Quick Actions Row (Highly Responsive) -->
     <div class="row g-4 mb-5">
-        <div class="col-md-4">
+
+        <!-- Action 1: Search Catalog -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
             <a th:href="@{/catalog}" class="quick-link-card border border-info">
-                <div class="card-icon">&#128269;</div>
+                <div class="card-icon"><i class="bi bi-search"></i></div>
                 <h5 class="fw-bold">Search Catalog</h5>
                 <p class="small text-muted mb-0">Find new books instantly.</p>
             </a>
         </div>
-        <div class="col-md-4">
+
+        <!-- Action 2: Current Loans -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
             <a th:href="@{/loans}" class="quick-link-card border border-warning">
-                <div class="card-icon">&#128213;</div>
+                <div class="card-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
                 <h5 class="fw-bold">My Current Loans</h5>
                 <p class="small text-muted mb-0">Check due dates and renew items.</p>
             </a>
         </div>
-        <div class="col-md-4">
+
+        <!-- Action 3: Pay Fines -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
             <a th:href="@{/fines/pay}" class="quick-link-card border border-danger">
-                <div class="card-icon">&#128176;</div>
+                <div class="card-icon"><i class="bi bi-currency-dollar"></i></div>
                 <h5 class="fw-bold">Pay Fines/Fees</h5>
                 <p class="small text-muted mb-0">Settle outstanding library charges.</p>
+            </a>
+        </div>
+
+        <!-- Action 4: Profile/Settings (New for better navigation) -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <a th:href="@{/profile}" class="quick-link-card border border-primary">
+                <div class="card-icon"><i class="bi bi-gear-fill"></i></div>
+                <h5 class="fw-bold">Account Settings</h5>
+                <p class="small text-muted mb-0">Update profile and preferences.</p>
             </a>
         </div>
     </div>
 
     <!-- Detailed Status Section -->
-    <div class="row">
+    <div class="row g-4">
 
         <!-- Books Due Soon Card -->
-        <!-- Changed to col-lg-8 and mx-auto for better centering now that Account Summary is gone -->
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-8">
             <div class="card section-card">
-                <div class="card-header bg-white fw-bold">
-                    Books Due Soon
+                <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-clock-history me-2 text-warning"></i> Books Due Soon</span>
+                    <a th:href="@{/loans}" class="btn btn-sm btn-outline-primary">View All</a>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <!-- Thymeleaf Example for list iteration -->
+                    <!-- Example items (to be replaced by th:each) -->
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        The Secret History
-                        <span class="badge bg-warning">Due Today</span>
+                        <div>
+                            <span class="fw-semibold">The Secret History</span>
+                            <span class="text-muted small ms-2">by Donna Tartt</span>
+                        </div>
+                        <span class="badge bg-danger rounded-pill p-2">Due Today</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        A Gentleman in Moscow
-                        <span class="badge bg-success">Due in 5 days</span>
+                        <div>
+                            <span class="fw-semibold">A Gentleman in Moscow</span>
+                            <span class="text-muted small ms-2">by Amor Towles</span>
+                        </div>
+                        <span class="badge bg-warning text-dark rounded-pill p-2">Due in 5 days</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        To Kill a Mockingbird
-                        <span class="badge bg-success">Due in 10 days</span>
+                        <div>
+                            <span class="fw-semibold">To Kill a Mockingbird</span>
+                            <span class="text-muted small ms-2">by Harper Lee</span>
+                        </div>
+                        <span class="badge bg-success rounded-pill p-2">Due in 10 days</span>
                     </li>
-                    <!-- Fallback content - This list would be replaced by a th:each block in a real app -->
-                    <li class="list-group-item text-muted small" th:if="${#lists.isEmpty(booksDue)}">
-                        No books due in the next 7 days. Happy reading!
+                    <!-- Fallback content -->
+                    <li class="list-group-item text-center text-muted small" th:if="${#lists.isEmpty(booksDue)}">
+                        <i class="bi bi-check-circle-fill me-1 text-success"></i> No books due in the next 7 days. Happy reading!
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- The Account Summary section (col-lg-6) was removed as requested -->
+        <!-- New Placeholder Card: Total Status/Metrics -->
+        <div class="col-lg-4">
+            <div class="stat-box shadow-lg">
+                <div class="mb-4">
+                    <i class="bi bi-graph-up-arrow display-4 mb-2"></i>
+                    <p class="text-uppercase fw-bold mb-0 small">Total Books Borrowed</p>
+                    <h2 class="fw-bolder" th:text="${user.totalBorrowed ?: '0'}">42</h2>
+                </div>
+                <div>
+                    <i class="bi bi-bell-fill display-5 mb-2"></i>
+                    <p class="text-uppercase fw-bold mb-0 small">Outstanding Fines</p>
+                    <h2 class="fw-bolder" th:text="${user.outstandingFines ?: '$0.00'}">$12.50</h2>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
 
 <!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

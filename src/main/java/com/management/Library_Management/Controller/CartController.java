@@ -1,12 +1,10 @@
 package com.management.Library_Management.Controller;
 
+import com.management.Library_Management.entities.Cart;
 import com.management.Library_Management.requests.RequestForCart;
 import com.management.Library_Management.service.CartInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cart")
@@ -20,4 +18,15 @@ public class CartController {
         cartInterface.addcartvalue(requestForCart);
         return "Done";
     }
+
+    @GetMapping("/cartbybookname/{bookname}")
+    public Cart getbookname(@PathVariable String bookname){
+        return cartInterface.getbookname(bookname);
+    }
+
+    @GetMapping("/cartbyauthorname/{authorname}")
+    public Cart getauthorname(@PathVariable String authorname){
+        return cartInterface.getCartByPublishedBy(authorname);
+    }
+
 }

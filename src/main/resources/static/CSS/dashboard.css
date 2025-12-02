@@ -1,39 +1,95 @@
-body {
-            background-color: #f4f7f6;
-            font-family: 'Inter', sans-serif;
+/* Base Styling */
+        body {
+            background-color: #f0f2f5; /* Soft background */
         }
+
+        /* Navigation */
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Dashboard Header */
         .dashboard-header {
-            padding: 20px 0;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #ddd;
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 2rem;
         }
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+        }
+
+        /* Quick Action Cards (Interactive & Attractive) */
         .quick-link-card {
-            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
             border-radius: 12px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: #343a40;
             background-color: white;
-            padding: 25px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            height: 100%; /* Ensure uniform height in the grid */
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        /* Color Overrides based on Bootstrap classes for Icons */
+        .border-info .card-icon { color: #0dcaf0; }
+        .border-warning .card-icon { color: #ffc107; }
+        .border-danger .card-icon { color: #dc3545; }
+
+        .quick-link-card:hover.border-info { border-color: #0dcaf0 !important; }
+        .quick-link-card:hover.border-warning { border-color: #ffc107 !important; }
+        .quick-link-card:hover.border-danger { border-color: #dc3545 !important; }
+
+        /* Detailed Status Cards */
+        .section-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+            border: none;
+        }
+        .section-card .card-header {
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            background-color: #f8f9fa !important;
+        }
+
+        /* List Item Styling */
+        .list-group-item {
+            padding: 1rem 1.5rem;
+        }
+        .list-group-item:last-child {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Placeholder Card for Profile/Stats */
+        .stat-box {
+            background: linear-gradient(45deg, #0d6efd, #00b4d8);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            text-decoration: none;
-            color: #212529;
         }
-        .quick-link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            border-color: #0d6efd !important;
-        }
-        .card-icon {
-            font-size: 3rem;
-            color: #0d6efd;
-            margin-bottom: 10px;
-        }
-        .section-card {
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
+        .stat-box h2 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
         }

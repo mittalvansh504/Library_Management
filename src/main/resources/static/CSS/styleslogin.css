@@ -1,42 +1,95 @@
-body {
+/* 🎨 Aesthetic Base */
+        html, body {
+            height: 100%;
+            margin: 0;
             background-color: #e9ecef; /* Light gray background */
+        }
+
+        /* 📱 Responsive Container (Full Viewport) */
+        .login-container {
+            min-height: 100vh;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 🖼️ Branding Section (The Eye Candy) */
+        .branding-section {
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.9), rgba(0, 128, 255, 0.7)), url('https://images.unsplash.com/photo-1544716278-ca5e3f4ad611?fit=crop&w=800&h=1000') center center no-repeat;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-        }
-        .login-card {
-            max-width: 400px;
-            width: 100%;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Soft, pronounced shadow */
-            background-color: white;
-            border: none;
-        }
-        .card-header {
-            background-color: transparent;
-            border-bottom: none;
             text-align: center;
-            padding-bottom: 0.5rem;
+            border-radius: 12px 0 0 12px; /* Rounded on the left */
+            min-height: 550px; /* Minimum height for desktop */
+            /* Animation Hint: Subtle initial appearance */
+            animation: fadeIn 1s ease-out;
         }
+
+        /* Hide image section on small screens */
+        @media (max-width: 991.98px) {
+            .branding-section {
+                display: none;
+            }
+            .login-form-section {
+                padding: 1rem;
+            }
+            .login-card {
+                border-radius: 12px; /* Full rounded corners on mobile */
+            }
+        }
+
+        /* 🔑 Login Form Card */
+        .login-card {
+            max-width: 450px;
+            width: 100%;
+            padding: 2.5rem;
+            border: none;
+            /* Box Shadow for depth and "floating" effect */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            background-color: white;
+            border-radius: 0 12px 12px 0; /* Rounded on the right */
+            /* Animation Hint: Subtle scale on load */
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .card-header {
+            text-align: center;
+            border-bottom: none;
+            padding: 0 0 2rem 0;
+            background-color: transparent;
+        }
+
         .logo-icon {
-            font-size: 2.5rem;
-            color: #0d6efd;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+            color: #0d6efd; /* Bootstrap Primary Blue */
         }
+
+        /* 🖱️ Interactive Elements (Hover/Focus Animation) */
         .form-control:focus {
             border-color: #0d6efd;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            /* Animation Hint: Smooth focus transition */
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
-        .btn-primary {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-            transition: background-color 0.3s;
-        }
+
         .btn-primary:hover {
-            background-color: #0b5ed7;
-            border-color: #0b5ed7;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(13, 110, 253, 0.3);
+            transition: all 0.2s;
+        }
+
+        /* Simple Animations using keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
