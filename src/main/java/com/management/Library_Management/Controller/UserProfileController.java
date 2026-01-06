@@ -5,45 +5,53 @@ import com.management.Library_Management.requests.RequestForLogin;
 import com.management.Library_Management.requests.RequestForRegistration;
 import com.management.Library_Management.service.RegisterInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@Controller
 @RestController
 @RequestMapping("/registration")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserProfileController {
 
     @Autowired
     private RegisterInterface registerInterface;
 
+    // REGISTER
     @PostMapping("/register")
-    public String adduser(@RequestBody RequestForRegistration requestForRegistration){
-        registerInterface.addUser(requestForRegistration);
-        return "";
+    public ResponseEntity<String> registerUser(
+            @RequestBody RequestForRegistration request) {
+
+        registerInterface.addUser(request);
+        return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/getAllUsers")
-    public List<User> getAllData(){
-        return registerInterface.getAllData();
+    // GET ALL USERS
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(registerInterface.getAllData());
     }
 
-    @GetMapping("/getUserById/{id}")
-    public Optional<User> getUserById(@PathVariable String id){
-        return registerInterface.getUserById(id);
+    // GET USER BY ID
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = registerInterface.getUserById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/getUserByEmailId")
-    public User getUserByEmailId(@RequestParam String emailId){
-        return registerInterface.getUserByEmailId(emailId);
-    }
-
-
+    // LOGIN
     @PostMapping("/login")
-    public String userdetail(@RequestBody RequestForLogin requestforlogin){
-        registerInterface.loginUser(requestforlogin);
-        return "";
+    public ResponseEntity<String> loginUser(
+            @RequestBody RequestForLogin request) {
+
+        boolean success = registerInterface.loginUser(request);
+        if (success) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(401)
+                    .body("Invalid email or password");
+        }
     }
 }

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class RequestForCart {
     private String book_name;
     private String published_by;
-    private int price;
+    private double price;
 }

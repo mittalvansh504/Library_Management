@@ -1,5 +1,7 @@
 package com.management.Library_Management.requests;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 import lombok.*;
 
 import java.util.Date;
@@ -9,13 +11,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class RequestForRegistration {
 
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone_no;
+    private String phoneNo;
     private Date dob;
-    private String addressLine1;
-    private String addressLine2;
+    private String addressLine;
     private String password;
     private String confirmPassword;
 

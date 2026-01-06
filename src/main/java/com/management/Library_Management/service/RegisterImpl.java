@@ -4,30 +4,46 @@ import com.management.Library_Management.entities.User;
 import com.management.Library_Management.repository.UserRepository;
 import com.management.Library_Management.requests.RequestForLogin;
 import com.management.Library_Management.requests.RequestForRegistration;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
-public class RegisterImpl implements RegisterInterface{
+public class RegisterImpl implements RegisterInterface {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public void addUser(RequestForRegistration requestForRegistration) {
+    public User addUser(RequestForRegistration request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("User already exists with this email");
+        }
+
+        if (userRepository.existsByPhoneNo(request.getPhoneNo())) {
+            throw new RuntimeException("User already exists with this phone number");
+        }
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            throw new RuntimeException("Password and Confirm Password do not match");
+        }
+
         User user = new User();
-        user.setFirst_name(requestForRegistration.getFirst_name());
-        user.setLast_name(requestForRegistration.getLast_name());
-        user.setEmail(requestForRegistration.getEmail());
-        user.setPhone_no(requestForRegistration.getPhone_no());
-        user.setDob(requestForRegistration.getDob());
-        user.setAddressLine(requestForRegistration.getAddressLine1() + " " + requestForRegistration.getAddressLine2());
-        user.setPassword(requestForRegistration.getPassword());
-        user.setConfirmPassword(requestForRegistration.getConfirmPassword());
-        userRepository.save(user);
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPhoneNo(request.getPhoneNo());
+        user.setDob(request.getDob());
+        user.setAddressLine(request.getAddressLine());
+        user.setPassword(request.getPassword());
+
+        return userRepository.save(user);
     }
 
     @Override
@@ -36,21 +52,16 @@ public class RegisterImpl implements RegisterInterface{
     }
 
     @Override
-    public Optional<User> getUserById(String id) {
+    public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public void loginUser(RequestForLogin requestForLogin){
-        User user = new User();
-        user.setEmail(user.getEmail());
-        user.setPassword(user.getPassword());
-        userRepository.save(user);
-    }
+    public boolean loginUser(RequestForLogin request) {
 
-    @Override
-    public User getUserByEmailId(String emailId) {
-        User user = userRepository.getUserByEmailId(emailId);
-        return user;
+        Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
+
+        return userOpt.isPresent() &&
+                userOpt.get().getPassword().equals(request.getPassword());
     }
 }

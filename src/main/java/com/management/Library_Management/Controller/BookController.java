@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/Books")
 public class BookController {
@@ -19,21 +19,16 @@ public class BookController {
     @PostMapping("/book")
     public String addbook(@RequestBody RequestForBook requestForBook) {
         bookInterface.addBook(requestForBook);
-        return "";
+        return "Book added Successfully";
     }
 
-    @GetMapping("/bookData")
-    public List<Book> getbook() {
-        return bookInterface.getBook();
+    @GetMapping("/bookbybookname/{bookName}")
+    public List<Book> searchbook(@PathVariable String bookName){
+        return bookInterface.searchbook(bookName);
     }
 
-    @GetMapping("/getbookby/{id}")
-    public Optional<Book> bookByName(@PathVariable String id) {
-        return bookInterface.getBookById(id);
-    }
-
-    @GetMapping("/GetBookByName/{name}")
-    public Book getbyname(@PathVariable String name){
-        return bookInterface.getbyname(name);
+    @GetMapping("/bookbyauthorname/{authorName}")
+    public List<Book> searchauthorname(@PathVariable String authorName){
+        return bookInterface.searchauthorname(authorName);
     }
 }

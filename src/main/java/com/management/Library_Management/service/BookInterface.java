@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookInterface {
+
     void addBook(RequestForBook requestForBook);
-    List<Book> getBook();
 
-    Optional<Book> getBookById(String s);
+    List<Book> searchbook(String bookName);
 
-    Book getbyname(String name);
+    List<Book> searchauthorname(String authorName);
 }

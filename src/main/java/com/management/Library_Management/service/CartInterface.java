@@ -6,9 +6,10 @@ import com.management.Library_Management.requests.RequestForCart;
 import java.util.List;
 
 public interface CartInterface {
+
     void addcartvalue(RequestForCart requestForCart);
 
-    Cart getbookname(String bookname);
+    List<Cart> getbookname(String bookName);
 
-    Cart getCartByPublishedBy(String authorname);
+    List<Cart> getCartByPublishedBy(String publishedBy);
 }

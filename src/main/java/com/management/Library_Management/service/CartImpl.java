@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CartImpl implements CartInterface{
+public class CartImpl implements CartInterface {
 
     @Autowired
     private CartRepository cartRepository;
@@ -17,19 +17,19 @@ public class CartImpl implements CartInterface{
     @Override
     public void addcartvalue(RequestForCart requestForCart) {
         Cart cart = new Cart();
-        cart.setBook_name(requestForCart.getBook_name());
-        cart.setPublished_by(requestForCart.getPublished_by());
+        cart.setBookName(requestForCart.getBook_name());
+        cart.setPublishedBy(requestForCart.getPublished_by());
         cart.setPrice(requestForCart.getPrice());
         cartRepository.save(cart);
     }
 
     @Override
-    public Cart getbookname(String bookname) {
-        return cartRepository.getbookname(bookname);
+    public List<Cart> getbookname(String bookName) {
+        return cartRepository.findByBookName(bookName);
     }
 
     @Override
-    public Cart getCartByPublishedBy(String authorname) {
-        return cartRepository.getauthorname(authorname);
+    public List<Cart> getCartByPublishedBy(String publishedBy) {
+        return cartRepository.findByPublishedBy(publishedBy);
     }
 }

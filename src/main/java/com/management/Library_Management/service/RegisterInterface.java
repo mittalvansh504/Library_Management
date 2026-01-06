@@ -9,12 +9,11 @@ import java.util.Optional;
 
 public interface RegisterInterface {
 
-    void addUser(RequestForRegistration requestForRegistration);
+    User addUser(RequestForRegistration request);
+
     List<User> getAllData();
-    Optional<User> getUserById(String id);
 
-    void loginUser(RequestForLogin requestForLogin);
+    Optional<User> getUserById(Long id);
 
-    User getUserByEmailId(String emailId);
-
+    boolean loginUser(RequestForLogin request);
 }

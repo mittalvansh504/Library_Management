@@ -4,29 +4,32 @@ import com.management.Library_Management.entities.Cart;
 import com.management.Library_Management.requests.RequestForCart;
 import com.management.Library_Management.service.CartInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CartController {
 
     @Autowired
     private CartInterface cartInterface;
 
-    @PostMapping("/addcart")
-    public String addcartvalue(@RequestBody RequestForCart requestForCart){
+    @PostMapping("/add")
+    public ResponseEntity<String> addCartValue(@RequestBody RequestForCart requestForCart) {
         cartInterface.addcartvalue(requestForCart);
-        return "Done";
+        return ResponseEntity.ok("Cart item added successfully");
     }
 
-    @GetMapping("/cartbybookname/{bookname}")
-    public Cart getbookname(@PathVariable String bookname){
-        return cartInterface.getbookname(bookname);
+    @GetMapping("/book/{bookName}")
+    public ResponseEntity<List<Cart>> getCartByBookName(@PathVariable String bookName) {
+        return ResponseEntity.ok(cartInterface.getbookname(bookName));
     }
 
-    @GetMapping("/cartbyauthorname/{authorname}")
-    public Cart getauthorname(@PathVariable String authorname){
-        return cartInterface.getCartByPublishedBy(authorname);
+    @GetMapping("/author/{authorName}")
+    public ResponseEntity<List<Cart>> getCartByAuthorName(@PathVariable String authorName) {
+        return ResponseEntity.ok(cartInterface.getCartByPublishedBy(authorName));
     }
-
 }

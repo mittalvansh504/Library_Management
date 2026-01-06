@@ -22,7 +22,7 @@ public class RentedImpl implements RentedInterface {
     }
 
     @Override
-    public  RentedBook bookbyname(String name){
+    public RentedBook bookbyname(String name){
         return repository.bookbyname(name);
     }
 
